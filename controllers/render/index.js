@@ -1,18 +1,18 @@
 const login = require('./login');
 const main = require('./main');
 const register = require('./register');
-const house = require('./house');
+const houses = require('./houses');
 const error = require('./error');
-const editUser = require('./editUserPages');
-const editHouse = require('./editHousePages');
+const editUserPages = require('./editUserPages');
+const editHousePages = require('./editHousePages');
 
 
 module.exports = {
     login,
     main,
     register,
-    house,
+    houses,
     error,
-    editUser,
-    editHouse
+    editUserPages,
+    editHousePages
 };

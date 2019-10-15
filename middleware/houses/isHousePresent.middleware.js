@@ -1,16 +1,17 @@
-const { provider } = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
 module.exports = async (req, res, next) => {
     try {
-        const { house_id } = req.params;
-        const query = `SELECT * FROM house WHERE id = ${house_id}`;
-        const [ isHousePresent ] = await provider.promise().query(query);
+        const {house_id} = req.params;
+        const HouseModel = dataBase.getModel('House');
 
-        if (!isHousePresent.length) {
+        const isHousePresent = await HouseModel.findByPk(house_id);
+
+        if (!isHousePresent) {
             throw new Error(`House with ID ${house_id} is not present`)
         }
 
-        req.user = isHousePresent;
+        req.house = isHousePresent;
 
         next();
     } catch (e) {

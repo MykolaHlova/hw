@@ -1,14 +1,17 @@
-const { provider } = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
-module.exports = async (req, res, next) =>{
+module.exports = async (req, res, next) => {
     try {
-        const {id} = req.body;
-        const query = `SELECT * FROM user WHERE id = ${id}`;
-        const [ isUserPresent ] = await provider.promise().query(query);
+        const {user_id} = req.params;
+        const UserModels = dataBase.getModel('User');
 
-        if(!isUserPresent.length){
-            throw new Error(`User with ID ${id} is not present`)
+        const isUserPresent = await UserModels.findByPk(user_id);
+
+        if (!isUserPresent) {
+            throw new Error(`User with ID ${user_id} is not present`)
         }
+
+        req.user = isUserPresent;
 
         next()
     } catch (e) {

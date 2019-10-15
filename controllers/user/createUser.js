@@ -1,10 +1,14 @@
-const { provider } = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
 module.exports = async (req, res) => {
-    const {name, email, password} = req.body;
-    const query = `INSERT INTO user(name, email, password) VALUES (?, ?, ?)`;
+    try {
+        const UserToCreate = req.body;
+        const UserModel = dataBase.getModel('User');
 
-    await provider.promise().query(query, [name, email, password]);
+        await UserModel.create(UserToCreate);
 
-    res.redirect('users');
+        res.json(UserToCreate);
+    } catch (e) {
+        res.json(e.message);
+    }
 };
