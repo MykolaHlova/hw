@@ -1,16 +1,10 @@
-const dataBase = require('../../dataBase').getInstance();
+const {houseService} = require('../../service');
 
 module.exports = async (req, res) => {
     try {
-        const HouseModel = dataBase.getModel('House');
+        const findAll = await houseService.findAllHouses();
 
-        const findAllHouses = await HouseModel.findAll();
-
-        if (!findAllHouses.length) {
-            throw new Error('There is no house');
-        }
-
-        res.json(findAllHouses);
+        res.json(findAll);
     } catch (e) {
         res.status(400).json(e.message)
     }

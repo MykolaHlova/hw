@@ -24,7 +24,7 @@ module.exports = (() => {
 
         return {
             setModels: () => getModels(),
-            getModels: modelName => models[modelName]
+            getModel: modelName => models[modelName]
         }
     }
 

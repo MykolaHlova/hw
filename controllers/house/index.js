@@ -1,11 +1,13 @@
-const getById = require('./getById');
 const createHouse = require('./createHouse');
-const findAll = require('./findAll');
+const deleteHouseById = require('./deleteHouseById');
 const editHouse = require('./editHouse');
+const findAll = require('./findAll');
+const getById = require('./getById');
 
 module.exports = {
-    getById,
     createHouse,
+    deleteHouseById,
+    editHouse,
     findAll,
-    editHouse
+    getById
 };

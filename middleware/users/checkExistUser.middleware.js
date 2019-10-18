@@ -1,23 +1,16 @@
-const dataBase = require('../../dataBase').getInstance();
+const {authService} = require('../../services');
 
 module.exports = async (req, res, next) => {
     try {
         const {email, password} = req.body;
-        const UserModel = dataBase.getModel('User');
 
-        const userExist = await UserModel.findOne({
-            where: {
-                email,
-                password
-            },
-            attributes: ['id', 'name', 'email']
-        });
+        const userExist = await authService.authService(email, password);
 
         if (!userExist) {
-            throw new Error(`User email: ${email} incorrect`)
+            throw new Error(`Email : ${email} incorrect`)
         }
 
-        req.user = userExist.dataValues;
+        req.user = userExist;
 
         next()
     } catch (e) {

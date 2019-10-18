@@ -1,16 +1,10 @@
-const dataBase = require('../../dataBase').getInstance();
+const {userService} = require('../../service');
 
 module.exports = async (req, res) => {
     try {
-        const UserModel = dataBase.getModel('User');
+        const findall = await userService.findAllUsers();
 
-        const findAllUsers = await UserModel.findAll();
-
-        if (!findAllUsers.length) {
-            throw new Error('User is undefined');
-        }
-
-        res.json(findAllUsers);
+        res.json(findall);
     } catch (e) {
         res.status(400).json(e.message)
     }
