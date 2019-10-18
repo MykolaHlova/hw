@@ -11,5 +11,9 @@ router.patch('/:house_id',
     houseMiddleware.checkEditHouseValidityMiddleware,
     houseMiddleware.isEditHousePresentMiddleware,
     house.editHouse);
+router.delete('/:houses_id',
+    checkAccessTokenMiddleware,
+    houseMiddleware.isHousePresentMiddleware,
+    house.deleteHouseById)
 
 module.exports = router;

@@ -15,5 +15,9 @@ router.patch('/:user_id',
     userMiddleware.checkEditUserValidityMiddleware,
     userMiddleware.isEditUserPresentMiddleware,
     user.editUser);
+router.delete('/:user_id',
+    checkAccessTokenMiddleware,
+    userMiddleware.isUserPresentMiddleware,
+    user.deleteUser,
 
 module.exports = router;
